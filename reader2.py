@@ -1,4 +1,5 @@
 from . import MyInterface
+
 #file object as a context manager
 
 class ProcessSpreadsheet(MyInterface):
@@ -6,7 +7,8 @@ class ProcessSpreadsheet(MyInterface):
     def __init__(self, filename, mode='r'):
         self.filename = filename
         self.mode = mode
-        self.file = open(self.filename, self.mode) 
+        self.file = open(self.filename, self.mode)
+        self.num = 0
 
     def __enter__(self): 
         self.file = open(self.filename, self.mode) 
@@ -19,8 +21,9 @@ class ProcessSpreadsheet(MyInterface):
         return self
 
     def __next__(self):
-        for a in self:
-            yield a
+        num = self.num
+        self.num += 1
+        return num
     
     def readall(self):
         return self.file.read()

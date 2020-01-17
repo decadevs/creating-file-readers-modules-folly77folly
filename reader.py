@@ -1,26 +1,12 @@
-
-# class ContextManager():
-import abc
-from abc import ABC
-
-
-class MyInterface(abc.ABC):
-
-    @abc.abstractmethod
-    def read_two_lines():
-        pass
-
-    @abc.abstractmethod
-    def read_last_two_lines():
-        pass
+# import pandas as p
 
 #file object as a context manager
-class ReadBytesFromFile(MyInterface):
+class OpenFile():
 
     def __init__(self, filename, mode='r'):
         self.filename = filename
         self.mode = mode
-        self.file = open(self.filename, self.mode) 
+        self.file = None
 
     def __enter__(self): 
         self.file = open(self.filename, self.mode) 
@@ -29,31 +15,61 @@ class ReadBytesFromFile(MyInterface):
     def __exit__(self, exc_type, exc_value, exc_traceback): 
         self.file.close()
     
-    def __iter__(self):
-        return self
 
-    def __next__(self):
-        for a in self:
-            yield a
-    
+# class to read opened file
+class ReadFile:
+    def __init__(self, file_descriptor):
+        self.fd= file_descriptor
+        self.read_file = []
+        self.firstTwoLines = []
+
     def readall(self):
-        return self.file.read()
+        for line in self.fd:
+            self.read_file.append(line)
+        return self.read_file
 
-    def read_two_lines(self):
-        with open(self.filename) as myfile:
-            head = [next(myfile) for x in range(2)]
-            return(head)
+    def read_first_two_lines(self):
+        count = 0
+        for line in self.fd:
+            count += 1
+            self.read_file.append(line)
+            if count == 2:
+                return self.read_file
+
         
     def read_last_two_lines(self):
         with open(self.filename) as f:
             data = f.readlines()
             tail = data[-2:]
             two_tails = ''.join(tail) 
-            return two_tails  
+            return two_tails
 
 
-readthings = ReadBytesFromFile('README.md')
-print(readthings.read_two_lines())
+
+class iterate_through_file:
+    def __init__(self, file_descriptor):
+        self.fd = file_descriptor
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        for line in self.fd:
+            return line
+
+
+
+
+      
+
+with OpenFile('iris.csv') as file_obj:
+    abc=ReadFile(file_obj)
+    print(abc.read_first_two_lines())
+        
+
+
+
+
 
 
 
