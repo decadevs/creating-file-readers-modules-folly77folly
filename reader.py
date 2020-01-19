@@ -1,4 +1,4 @@
-import abc
+from abc import ABC, abstractmethod
 
 #file object as a context manager
 class OpenFile():
@@ -16,12 +16,12 @@ class OpenFile():
         self.file.close()
     
 # class for my interface contract
-class ContractInterface(abc.ABC):
-    @abc.abstractmethod
+class ContractInterface(ABC):
+    @abstractmethod
     def read_last_two_lines(self):
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def readall(self):
         pass
 
@@ -45,13 +45,11 @@ class ReadFile(ContractInterface):
             if count == 2:
                 return self.read_file
 
-        
     def read_last_two_lines(self):
+        pass
         # for line in self.fd:
         #     return self.fd
         # # return self.read_file
-
-
 
 class iterate_through_file:
     def __init__(self, file_descriptor):
@@ -64,15 +62,9 @@ class iterate_through_file:
         for line in self.fd:
             return line
 
-
-
-
-      
-
-with OpenFile('iris.csv') as file_obj:
-    abc=ReadFile(file_obj)
-    print(abc.read_last_two_lines())
-        
+# with OpenFile('iris.csv') as file_obj:
+#     abc=ReadFile(file_obj)
+#     print(abc.read_first_two_lines())
 
 
 

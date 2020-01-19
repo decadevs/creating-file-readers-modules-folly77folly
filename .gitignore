@@ -2,3 +2,7 @@
 abc.py
 .csv
 aa.py
+__pycache__
+aa.py
+abc.py
+iris2.csv
