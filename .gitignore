@@ -6,3 +6,6 @@ __pycache__
 aa.py
 abc.py
 iris2.csv
+spreadsheet/__pycache__
+reader.py
+reader2.py
