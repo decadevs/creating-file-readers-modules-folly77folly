@@ -1,5 +1,4 @@
 from . import MyInterface
-
 #file object as a context manager
 
 class ProcessSpreadsheet(MyInterface):
