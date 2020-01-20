@@ -6,7 +6,7 @@ class AllCsvFiles(Files):
     def __init__(self, filename):
         self.filename = filename
         self.file = pd.read_csv(filename)
-        self.x = 0
+        self.num = 0
 
     def __enter__(self):
         self.file  = pd.read_csv(self.filename)
@@ -20,12 +20,11 @@ class AllCsvFiles(Files):
         return self
 
     def __next__(self):
-        # try:
-        self.x += 1
-        print(self.x)
-        return self.file.iloc[[self.x],:]
-        # except:
-        #     raise StopIteration
+        try:
+            self.num += 1
+            return self.file.iloc[[self.num],:]
+        except:
+            raise StopIteration
             
         
 
