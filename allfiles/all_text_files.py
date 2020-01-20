@@ -6,14 +6,13 @@ class AllFiles(Files):
         self.filename = filename
         self.mode = mode
         self.file = open(self.filename, self.mode)
-        # self.xyz = None
+        self.file = None
         self.firstTwoLines = []
 
 
-
     def __enter__(self):
-        self.file = open(self.filename, self.mode)
-        return self.file 
+        self.file  = open(self.filename, self.mode)
+        return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         self.file.close()        
